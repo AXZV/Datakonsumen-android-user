@@ -1,0 +1,70 @@
+<div class="header1" >
+  <ion-row >
+    <ion-col >
+        <button ion-button clear class="text1" (click)="back()"  icon-start>
+            <ion-icon style="font-size: 20px;" name="arrow-back"></ion-icon>
+        </button>
+    </ion-col>
+  </ion-row>
+  <ion-row >
+    <ion-col>
+      <h3 class="text">Booking</h3>  
+      <div class="line"></div>
+      <h4 class="text2">Anda Antrian Ke - {{antrian}}</h4>  
+    </ion-col>
+  </ion-row>
+</div>
+
+<ion-content class="conten">
+
+    <div class="form" > 
+        <ion-row> 
+          <ion-col>
+              <ion-item>
+                <ion-label floating>Nama Lengkap</ion-label>
+                <ion-input type="text" [(ngModel)]="datakonsumen.nama_konsumen" ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label floating>Merek / Seri</ion-label>
+                <ion-input type="text" [(ngModel)]="datakonsumen.merek" ></ion-input>
+              </ion-item>
+              <!-- <ion-item>
+                <ion-label floating>Kelengkapan</ion-label>
+                <ion-input type="text" [(ngModel)]="datakonsumen.kelengkapan" ></ion-input>
+              </ion-item> -->
+              <ion-item>
+                <ion-label floating>
+                  <h2>No handphone</h2>
+                  <ion-note style="font-size: 15px;">* Please Use +62 Format for Better Experience</ion-note>
+                </ion-label>
+                <ion-input type="text" [(ngModel)]="datakonsumen.no_hp" ></ion-input>
+              </ion-item>
+  
+              <ion-item>
+                <ion-label floating>Deskripsi Permasalahan</ion-label>
+                <ion-input type="text" [(ngModel)]="datakonsumen.problem_desk" ></ion-input>
+              </ion-item>
+          
+              <!-- <ion-item>
+                <ion-label floating>Catatan</ion-label>
+                <ion-input type="text" [(ngModel)]="datakonsumen.catatan" ></ion-input>
+              </ion-item> -->
+  
+            </ion-col>
+          </ion-row>
+  
+          <ion-row>
+              <ion-col text-center >
+                  <button name="save" class="button1" ion-button round color="transparant" (click)="generatenokonsumen()" [disabled]="!datakonsumen.nama_konsumen || !datakonsumen.merek || !datakonsumen.no_hp || !datakonsumen.problem_desk">Book Now</button>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col text-center>
+                    <h3 class="warning">* Pastikan nomor telepon dapat dihubungi melalui Whatsapp dan gunakan format +62. Contoh: +6281332xxxxxx</h3>
+              </ion-col>
+          </ion-row>
+          <div class="bottomspace" ></div>
+        </div>
+
+
+</ion-content>

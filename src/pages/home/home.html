@@ -1,0 +1,504 @@
+    
+    <div *ngIf="divstatus == 'modedetaildata' && divdetailpembayaran != true" class="headerx" >
+        <button class="closeicon" clear (click)="modenormal()">
+          <ion-icon class="ciicon" name="close"></ion-icon>
+        </button>
+
+      <ion-row style="margin-top:30px" >
+        <ion-col >
+            <div *ngIf="datakonsumen.status == 1" style="background-color:#ff4444; color:#232526"  class="status_header">
+                Accepted
+            </div>
+            <div *ngIf="datakonsumen.status == 2" style="background-color:#ffbb33; color:#232526" class="status_header">
+                Check
+            </div>
+            <div *ngIf="datakonsumen.status == 3" style="background-color:#feef6d; color:#232526" class="status_header">
+                Waiting
+            </div>
+            <div *ngIf="datakonsumen.status == 4" style="background-color:#33b5e5; color:#232526" class="status_header">
+                Process
+            </div>
+            <div *ngIf="datakonsumen.status == 5" style="background-color:#00c581; color:#232526" class="status_header">
+                Finished
+            </div>
+            <div *ngIf="datakonsumen.status == 6" style="background-color:#232526; color:white" class="status_header">
+                Failed
+            </div>
+            <p class="dd_id">Konsumen Id {{datakonsumen.id_konsumen}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+                <ion-segment class="segment" [(ngModel)]="segment">
+                    <ion-segment-button value="graph1"  (click)="graph1()">
+                        <ion-icon class="segmenticon" name="ios-list-box"></ion-icon>
+                    </ion-segment-button>
+                    <ion-segment-button value="graph2"  (click)="graph2()">
+                        <ion-icon class="segmenticon" name="ios-clock"></ion-icon>
+                    </ion-segment-button>
+                </ion-segment>
+        </ion-col>
+      </ion-row>
+
+    </div>
+
+
+
+<!-- //////////////////////////////////////////////////////////// -->
+<ion-content scrollbar-y-auto class="conten" *ngIf="scan == false" overflow-scroll="true"  >
+
+    <ion-fab class="fabprint" right bottom *ngIf=" divstatus == 'modedetaildata' && datakonsumen.status == 5  && segment == 'graph1'">
+        <button (click)="print(datakonsumen)"  ion-fab><ion-icon name="print"></ion-icon></button>
+    </ion-fab>
+    
+<!-- // =================================================================================================== -->
+<!-- // ======================================= Mode Normaal ============================================= -->
+
+
+  <span *ngIf="divstatus == 'modenormal'">
+    <ion-row style="margin-top:40px">
+        <ion-col text-center>
+          <img height="100px" src="../assets/imgs/su.png" />
+        </ion-col>
+    </ion-row>
+
+    <div class="menu">
+      <ion-grid>
+          <ion-row>
+            <ion-col col-10>
+                <ion-searchbar
+                  [(ngModel)]="trackingcode"
+                  [showCancelButton]="shouldShowCancel"
+                  (ionCancel)="onCancel($event)"
+                  placeholder="Tracking Code"
+                  (search)="searchBycode(trackingcode)"
+                  autocapitalize="none">
+                </ion-searchbar>
+            </ion-col>
+            <ion-col col-2>
+              <button class="button-cr" (click)="scan_qr_code()">
+                  <ion-icon class="icon-cr" name="ios-barcode-outline"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col text-center  >
+              <div class="menu1">
+                <button class="b1" (click)="booking()" >
+                    <ion-icon class="iconc1" name="ios-create-outline"></ion-icon>
+                    <p class="textc1">Booking Service</p>
+                </button>
+              </div>
+            </ion-col>
+            <ion-col text-center  >
+              <div class="menu2">
+                <button class="b1" (click)="pricelist()" >
+                  <ion-icon class="iconc2" name="ios-paper-outline"></ion-icon>
+                  <p class="textc2">Price List</p>
+                </button>
+              </div>
+            </ion-col>
+          </ion-row>
+
+
+            <ion-row>
+                <ion-col text-center>
+                    <div class="menu3">
+                        <button class="b3" (click)="aboutus()" style="color:#FFC135;" >                    
+                          <ion-icon name="help-circle"></ion-icon> About Us
+                        </button>
+                    </div>
+                </ion-col>                
+                <ion-col text-center>
+                    <div class="menu5">
+                      <button class="b3" (click)="contactus()" style="color:#3B945E;" >                    
+                        <ion-icon ios="ios-call" md="md-call"></ion-icon> Contact Us
+                      </button>
+                    </div>
+                </ion-col>             
+            </ion-row>
+
+            <ion-row>
+                <ion-col text-center>
+                    <div class="menu4">
+                        <button class="b3" (click)="info()" style="color:#926238;" >                    
+                          <ion-icon name="information-circle"></ion-icon> Instruction
+                        </button>
+                    </div>
+                </ion-col>          
+            </ion-row>
+
+        </ion-grid>
+
+    </div >
+  </span>
+
+<!-- // =================================================================================================== -->
+<!-- // ===================================== Div Detail Data ============================================= -->
+
+  <div *ngIf="divstatus == 'modedetaildata'" class="modedetaildata" >
+
+    <div [ngSwitch]="segment" >
+    
+        <div *ngSwitchCase="'graph1'" >
+  
+            <ion-list style="margin-top:10px;">
+                    <ion-item >
+                        <ion-label stacked><ion-icon name="person"></ion-icon>&ensp;&ensp;Nama</ion-label>
+                        <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;{{datakonsumen.nama_konsumen}}"></ion-input>
+                    </ion-item>
+                    <ion-item >
+                        <ion-label stacked><ion-icon name="call"></ion-icon>&ensp;&ensp;Telepon</ion-label>
+                        <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;{{datakonsumen.no_hp}}"></ion-input>
+                        <!-- <button style="background-color: transparent; color:grey;" item-right ><a class="walink" href="{{noWhatsapp}}"><ion-icon style="color:#00c581" name="logo-whatsapp"></ion-icon>&ensp;Whatsapp</a></button> -->
+                    </ion-item>
+                    <ion-item>
+                        <ion-label stacked><ion-icon name="arrow-down"></ion-icon>&ensp;&ensp;Tanggal Masuk</ion-label>
+                        <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;{{datakonsumen.tanggal_masuk}}"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label *ngIf="datakonsumen.status != 6" stacked><ion-icon name="arrow-up"></ion-icon>&ensp;&ensp;Tanggal Keluar</ion-label>
+                        <ion-label *ngIf="datakonsumen.status == 6" stacked><ion-icon name="close"></ion-icon>&ensp;&ensp;Tanggal Pembatalan</ion-label>
+                        <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;{{datakonsumen.tanggal_keluar}}"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label stacked><ion-icon name="desktop"></ion-icon>&ensp;&ensp;Merek</ion-label>
+                        <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;{{datakonsumen.merek}}"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label stacked><ion-icon name="cube"></ion-icon>&ensp;&ensp;Kelengkapan</ion-label>
+                        <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;{{datakonsumen.kelengkapan}}"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="datakonsumen.status == 5">
+                        <ion-label stacked><ion-icon name="card"></ion-icon>&ensp;&ensp;Total Biaya</ion-label>
+                        <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;Rp.&ensp;{{datapembayarankonsumen.totalpembayaran}}"></ion-input>
+                        <button style="background-color: transparent; color:#e84855;" item-right (click)="detailpembayaran()"><ion-icon style="color:#e84855" name="stats"></ion-icon>&ensp;Detail</button>
+                    </ion-item>
+                    <ion-item *ngIf="datakonsumen.status != 5">
+                        <ion-label stacked><ion-icon name="clipboard"></ion-icon>&ensp;&ensp;Deskripsi Permasalahan</ion-label>
+                        <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;{{datakonsumen.problem_desk}}"></ion-input>
+                    </ion-item>      
+                    <ion-item *ngIf="datakonsumen.catatan != null">
+                        <ion-label stacked><ion-icon name="clipboard"></ion-icon>&ensp;&ensp;Catatan</ion-label>
+                        <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;{{datakonsumen.catatan}}"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="datakonsumen.status == 5">
+                        <ion-label stacked><ion-icon name="construct"></ion-icon>&ensp;&ensp;Jenis Service</ion-label>
+                        <ion-input *ngFor="let x of datapembayarankonsumen.detailpembayaran" class="inputdisable" placeholder="&ensp;&ensp;&ensp;-  {{x.description}}"></ion-input>
+                    </ion-item>     
+            </ion-list>
+        </div>
+        <div *ngSwitchCase="'graph2'">
+
+            <div class="graph2cont" *ngIf="datakonsumen.status == 1">
+                    <p class="textt">Device anda sudah kami terima</p>
+                    <p class="texttgry">Device anda sedang kami cek kerusakannya</p>
+                    <p class="texttgry">Device anda sedang menunggu spare part</p>
+                    <p class="texttgry">Device anda sedang kami kerjakan</p>
+                    <p class="texttgry">Device anda sudah jadi</p>
+            </div>
+
+            <div class="graph2cont" *ngIf="datakonsumen.status == 2">
+                <p class="textt">Device anda sudah kami terima</p>
+                <p class="textt2">Device anda sedang kami cek kerusakannya</p>
+                <p class="texttgry">Device anda sedang menunggu spare part</p>
+                <p class="texttgry">Device anda sedang kami kerjakan</p>
+                <p class="texttgry">Device anda sudah jadi</p>
+            </div>
+
+            <div class="graph2cont" *ngIf="datakonsumen.status == 3">
+                <p class="textt">Device anda sudah kami terima</p>
+                <p class="textt2">Device anda sedang kami cek kerusakannya</p>
+                <p class="textt3">Device anda sedang menunggu spare part</p>
+                <p class="texttgry">Device anda sedang kami kerjakan</p>
+                <p class="texttgry">Device anda sudah jadi</p>
+            </div>
+
+            <div class="graph2cont" *ngIf="datakonsumen.status == 4">
+                <p class="textt">Device anda sudah kami terima</p>
+                <p class="textt2">Device anda sedang kami cek kerusakannya</p>
+                <p class="textt3">Device anda sedang menunggu spare part</p>
+                <p class="textt4">Device anda sedang kami kerjakan</p>
+                <p class="texttgry">Device anda sudah jadi</p>
+            </div>
+
+            <div class="graph2cont" *ngIf="datakonsumen.status >= 5">
+                <p class="textt">Device anda sudah kami terima</p>
+                <p class="textt2">Device anda sedang kami cek kerusakannya</p>
+                <p class="textt3">Device anda sedang menunggu spare part</p>
+                <p class="textt4">Device anda sedang kami kerjakan</p>
+                <p class="textt5">Device anda sudah jadi</p>
+            </div>
+                
+        </div>
+    </div>   
+  </div>
+
+<!-- // =================================================================================================== -->
+<!-- // ================================== Div Detail Pembayaran ============================================= -->
+  <div *ngIf="divdetailpembayaran" class="divdetailpembayaran" overflow-scroll="true">
+
+    <ion-row>	
+        <ion-col col-10>
+    </ion-col>
+    <ion-col col-2>
+        <button class="buttonx" (click)="closedivdetailpembayaran()" ion-button><ion-icon style="color: #fff" name="close"></ion-icon></button>
+    </ion-col>
+    </ion-row>
+   
+    <div >
+    <ion-card *ngFor="let x of datapembayarankonsumen.detailpembayaran">
+          <ion-row >            
+            <ion-col col-8>
+              <ion-item>
+                <ion-label stacked >Service Description</ion-label>
+                <ion-input type="text" [(ngModel)]="x.description" class="inputdisable" ></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-4>
+              <ion-item>
+                  <ion-label stacked >Qty</ion-label>
+                  <ion-input type="number" [(ngModel)]="x.qty" class="inputdisable"></ion-input>
+              </ion-item>
+          </ion-col>
+          </ion-row>
+          <!-- <ion-row >            
+              <ion-col col-6>
+                  <ion-item>
+                      <ion-label stacked >Initial Capital</ion-label>
+                      <ion-input type="text"  [(ngModel)]="x.capital" class="inputdisable"></ion-input>
+                  </ion-item>
+              </ion-col>
+              <ion-col col-6>
+                  <ion-item>
+                      <ion-label stacked >Total Capital</ion-label>
+                      <ion-input  type="text"  [(ngModel)]="x.totalcapital" class="inputdisable"></ion-input>
+                  </ion-item>
+              </ion-col>
+          </ion-row> -->
+          <ion-row>
+              <ion-col col-6>
+                  <ion-item>
+                      <ion-label stacked >Service Prices</ion-label>
+                      <ion-input type="number"  [(ngModel)]="x.price" class="inputdisable"></ion-input>
+                  </ion-item>
+              </ion-col>
+              <ion-col col-6>
+                  <ion-item>
+                      <ion-label stacked >Total Service Prices</ion-label>
+                      <ion-input type="text" [(ngModel)]="x.itempricetotal" class="inputdisable" ></ion-input>
+                  </ion-item>
+              </ion-col>
+          </ion-row>
+        </ion-card>
+  
+        <!-- <ion-card>
+              <ion-card-header>
+                  Total Capital
+              </ion-card-header>
+              <ion-card-content>
+                  <h3 class="grandtotal">
+                  Rp. {{datapembayarankonsumen.totalcapital}}
+                  </h3>
+              </ion-card-content>
+          </ion-card> -->
+          <ion-card>
+              <ion-card-header>
+                  Total Service Coasts
+              </ion-card-header>
+              <ion-card-content>
+                  <h3 class="grandtotal">
+                  Rp. {{datapembayarankonsumen.totalpembayaran}}
+                  </h3>
+              </ion-card-content>
+          </ion-card>
+  
+      </div>  
+  
+  </div>
+
+<!-- // =================================================================================================== -->
+<!-- // ======================================= Contact Us ============================================= -->
+
+    <div *ngIf="divcontactus" class="divcontactus" overflow-scroll="true">
+
+        <ion-row>	
+            <ion-col col-2>
+                    <button class="buttonxy" (click)="closecontactus()" ion-button><ion-icon style="color: #505050; height:20px;" ios="ios-arrow-back" md="md-arrow-back"></ion-icon></button>
+            </ion-col>
+            <ion-col col-10>
+            </ion-col>
+        </ion-row>
+    
+        <div style="margin-top:6%;" >
+            <h3 class="contactustext"> Contact Us </h3>
+            <div class="horline"> </div>
+
+            <ion-row style="margin-top:10%;">
+                <ion-col class="flexcontainer">
+                    <ion-fab>
+                        <a ion-fab style="background-color:#ffffff; color:#00c581" href="https://wa.me/628995556181"><ion-icon name="logo-whatsapp" ></ion-icon></a>
+                    </ion-fab>
+                </ion-col>
+                <ion-col class="flexcontainer">
+                    <ion-fab>
+                        <button (click)="sms()" ion-fab style="background-color:#ffffff; color:#458eff"><ion-icon ios="ios-mail" md="md-mail"></ion-icon></button>
+                    </ion-fab>
+                </ion-col>
+                <ion-col class="flexcontainer">
+                    <ion-fab>
+                        <button (click)="mail()" ion-fab style="background-color:#ffffff; color:#d44638"><ion-icon name="logo-google" ></ion-icon></button>
+                    </ion-fab>
+                </ion-col>
+                <ion-col class="flexcontainer">
+                    <ion-fab>
+                        <button (click)="instagram(username='service_unnes')" ion-fab style="background-color:#ffffff; color:#d6249f;"><ion-icon ios="logo-instagram" md="logo-instagram"></ion-icon></button>
+                    </ion-fab>
+                </ion-col>
+            </ion-row>
+        </div>
+
+        <div style="margin-top:20%;" >
+            <h3 class="findustext"> Or you can find us at </h3>
+            <!-- <div class="horline"> </div> -->
+
+            <ion-row style="margin-top:10%;">
+                <ion-col class="flexcontainer">
+                    <ion-fab>
+                        <button (click)="openmaps()" ion-fab style="background-color:#ffffff; color: #e84855;" ><ion-icon name="pin" ></ion-icon></button>
+                    </ion-fab>
+                </ion-col>
+            </ion-row>
+            <ion-row style="margin-top:5%;">
+                <ion-col class="flexcontainer">
+                    <p class="findustext2"> Jl. Cempakasari Timur, RT 03/ RW 01, Sekaran, Kecamatan Gunungpati, Kota Semarang, 50229 </p>
+                </ion-col>
+            </ion-row>
+            <ion-row style="margin-top:-6%;">
+                <ion-col class="flexcontainer">
+                    <h3 class="findustext2"> We are open everyday at 09.00 Am - 09.00 Pm</h3>
+                </ion-col>
+            </ion-row>
+        </div>    
+    
+    </div>
+
+<!-- // =================================================================================================== -->
+<!-- // ======================================== About Us ============================================= -->
+
+    <div *ngIf="divaboutus" class="divcontactus" overflow-scroll="true">
+
+        <ion-row>	
+            <ion-col col-2>
+                    <button class="buttonxy" (click)="closeaboutus()" ion-button><ion-icon style="color: #505050; height:20px;" ios="ios-arrow-back" md="md-arrow-back"></ion-icon></button>
+            </ion-col>
+            <ion-col col-10>
+            </ion-col>
+        </ion-row>
+
+        <div style="margin-top:6%;" >
+            <h3 class="contactustext"> About Us </h3>
+            <div class="horline"> </div>
+
+            <ion-row style="margin-top:10%;">
+                <ion-col class="flexcontainer">
+                    <img height="90px" src="../assets/imgs/su.png" />
+                </ion-col>
+            </ion-row>
+            <ion-row style="margin-top:3%;">
+                <ion-col class="flexcontainer">
+                <p class="findustext">Service Unnes merupakan sebuah UMKM yang bergerak dibidang jasa perbaikan perangkat keras dan perangkat lunak komputer yang berdiri sejak tahun 2017. Sejak berdiri kamu sudah melayanai lebih dari 2.000 konsumen</p>
+                </ion-col>
+            </ion-row>
+        </div>
+
+    </div>
+
+<!-- // =================================================================================================== -->
+<!-- // ======================================== About Us ============================================= -->
+
+<div *ngIf="divinfo" class="divcontactus" overflow-scroll="true">
+
+        <ion-row>	
+            <ion-col col-2>
+                    <button class="buttonxy" (click)="closeinfo()" ion-button><ion-icon style="color: #505050; height:20px;" ios="ios-arrow-back" md="md-arrow-back"></ion-icon></button>
+            </ion-col>
+            <ion-col col-10>
+            </ion-col>
+        </ion-row>
+
+        <div style="margin-top:6%;" >
+            <h3 class="contactustext"> Pentunjuk Penggunaan </h3>
+            <div class="horline"> </div>
+            <div style="margin-top:10%; width:80%; margin:0 auto; text-align: justify;">
+            <!-- <ion-row style="margin-top:10%;">
+                <ion-col col-2 class="flexcontainer"> -->
+                    <ion-row>
+                        <ion-col col-1>1.</ion-col>
+                        <ion-col col-11>Menu Tracking Code berfungsi untuk melacak kondisi device yang sedang diperbaiki. Bias dengan kode penerimaan atau dengan scan barcode pada kwitansi.</ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-1>2.</ion-col>
+                        <ion-col col-11>Menu Booking Services berfungsi untuk memesan dengan cara memasukkan data laptop yang bermasalah.</ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-1>3.</ion-col>
+                        <ion-col col-11>Menu Pricelist berisi daftar harga hardware yang kami jual.</ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-1>4.</ion-col>
+                        <ion-col col-11>Menu Contact Us berfungsi sebagai media untuk menghubungi kami.</ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-1>5.</ion-col>
+                        <ion-col col-11>Menu About Us berisi tentang kami.</ion-col>
+                    </ion-row>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+</ion-content>
+
+<ion-grid class="gridscan" style="height: 100%; padding:0;" *ngIf="scan == true" >
+    <div class="headscan">
+        <h3 class="headscantext">
+          <button class="scanclose" (click)="exit_from_qr_scan()">
+          <ion-icon class="scanclose" name="close" item-right></ion-icon>
+          </button> 
+        </h3>
+        
+    </div>
+    <ion-row justify-content-center align-items-center style="height: 100%">
+      <div class="scansquare" >
+          <div class="diode">
+              <div class="laser"></div>
+            </div>
+      </div>
+    </ion-row>
+    <h3 class="h3scan">Letakan QrCode dalam bingkai</h3>
+    
+    <ion-row class="rowscanfab">
+      <ion-col col-12>
+          <ion-fab class="fab">
+            <button (click)="light_enable_desable()" ion-fab>
+              <ion-icon *ngIf="lightstatus == 'off'" name="ios-flash"></ion-icon>
+              <ion-icon *ngIf="lightstatus == 'on'" name="ios-flash-outline"></ion-icon>
+            </button>
+          </ion-fab>
+      </ion-col>
+    </ion-row>
+
+
+</ion-grid>
+
+
+
+

@@ -1,0 +1,218 @@
+page-pricelist {
+
+    .conten
+    {
+        ::-webkit-scrollbar{
+            display:none;
+            }
+    }
+
+    .header1
+    {
+        background-color:color($colors, theme);
+        height: 100px;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left:0;
+        z-index: 111100;
+        transition: .4s;
+        -moz-transition: .4s; /* Firefox 4 */
+        -webkit-transition: .4s; /* Safari and Chrome */
+        
+    }
+
+    .line
+    {
+        width: 112px;
+        border-bottom: 2px solid;
+        border-color: whitesmoke;
+        margin-left: 4%;
+    
+    }
+    .text2
+    {
+        color: whitesmoke;
+        margin-top: -2.5%;
+        margin-left: 130px;
+        // font-size: 20px;
+        position: absolute;
+        font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .text1, .text1:focus
+    {
+        color: whitesmoke;
+    }
+    .text
+    {
+        color: whitesmoke;
+        margin-top: -3%;
+        margin-left: 4%;
+        font-size: 20px;
+        font: 24px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .text_1, .text_1:focus
+    {
+        color: color($colors, theme);
+        float: right;
+        font-size: 14px;
+    }
+
+    .headnonsearch
+    {
+        background-color: color($colors, theme);
+        // height: 90%;
+        width: 100%;
+        z-index: 100;
+        position: relative;
+        padding-bottom: 6%;
+
+    }
+    .searchbar
+    {
+        z-index: 10;
+        transition: .2s;
+        -moz-transition: .2s; /* Firefox 4 */
+        -webkit-transition: .2s; /* Safari and Chrome */
+
+    }
+    .sbar
+    {
+        z-index: 10;
+
+        display: block;
+    }
+    .searchbar-input {
+        border: 0 !important;
+        box-shadow: none !important;
+        border-radius: 90px !important;
+        background-color: #dbdada !important;
+    }
+
+    .searchbar
+    {
+        border-radius: 6px;
+    }
+
+
+    .segmentdiv
+    {
+        width: 100%;
+    }
+    .segment
+    {
+        background-color: #232526;
+        width: 100%;
+        z-index: 1100;
+        position: fixed;
+        left:0;
+        // margin-top: -5%;
+    }
+    .segmenticon 
+    {
+        color: color($colors, theme);
+    }
+
+
+    // -------------------------- CSS FAB BUTTON FILTER DIV NORMAL ------------------------------------------
+
+    .fabmenu,  .fabmenu:focus
+    {
+        background-color: #232526;
+        color: color($colors, theme);
+        box-shadow: none;
+
+    }
+    .fabmenu:hover
+    {
+        background-color: color($colors, theme);
+        box-shadow: none;
+        color: black;
+    }
+    .fab ion-icon
+    {
+        margin-top: 7%;
+    }
+
+    .fabfilter
+    {
+        background-color: #232526;
+        color: color($colors, theme);
+    }
+    .fab:hover
+    {
+        background-color: color($colors, theme);
+        color: #232526;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    .cont
+    {
+        margin-top:155px !important;
+    }
+
+    .dataisnull
+    {
+        padding-top:15% !important;
+    }
+    .dataisnullimage
+    {
+        text-align: center;
+        height:160px;
+        margin:0 auto;
+        display: block;
+        overflow-y: hidden !important
+    }
+    .dataisnulltext
+    {
+        text-align: center;
+        font: 18px "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: rgb(156, 156, 156);
+        padding: 8px;
+    }
+    .nokonsumen
+    {
+        font: 13px "Helvetica Neue", Helvetica, Arial, sans-serif;
+        // line-height: 24px;
+        // height:35px;
+        // margin: 0px;
+        // display: table-cell;
+        // vertical-align: middle;
+    }
+
+
+    .bottomspace
+    {
+        height: 30px;
+        width: 100%;
+    }
+
+    // =================================================================================================
+    .closeicon
+    {
+    right: 10px; 
+    top: 10px;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0);
+    }
+    .ciicon
+    {
+    font-size: 25px;
+
+    }
+    .listdetail
+    {
+        margin-top: 30px;
+    }
+    .inputdisable
+    {
+    pointer-events:none;
+    ::-webkit-input-placeholder
+    {
+        color: black;
+        opacity: 1;
+    }
+    }
+
+}

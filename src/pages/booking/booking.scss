@@ -1,0 +1,78 @@
+page-booking {
+
+    .header1
+    {
+        background-color:color($colors, theme);
+        height: 80px;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left:0;
+        z-index: 111100;
+        
+    }
+
+    .conten
+    {
+        ::-webkit-scrollbar{
+            display:none;
+            }
+        // height: 100%;
+    }
+    .form
+    {
+        margin-top:70px !important;
+    }
+    .line
+    {
+        width: 112px;
+        border-bottom: 2px solid;
+        border-color: whitesmoke;
+        margin-left: 4%;
+        margin-top:-1%;
+    
+    }
+    .text2
+    {
+        color: whitesmoke;
+        margin-top: -2.5%;
+        margin-left: 130px;
+        // font-size: 20px;
+        position: absolute;
+        font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .text1, .text1:focus
+    {
+        color: whitesmoke;
+    }
+    .text
+    {
+        color: whitesmoke;
+        margin-top: -3%;
+        margin-left: 4%;
+        font-size: 20px;
+        font: 24px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+
+    // ---------------------------------------------------------------------------------------------
+
+    .button1, .button2, .button1:focus, .button2:focus
+    {
+        color: white;
+        width:28%;
+        background-color: color($colors, theme);
+    }
+    .button1:hover .button2:hover
+    {
+        color: #232526;
+
+    }
+
+    .warning
+    {
+        color: rgb(158, 158, 158);
+        font-size: 12px;
+    }
+
+}

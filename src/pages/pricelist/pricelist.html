@@ -1,0 +1,174 @@
+
+<div class="header1" *ngIf="divstatus == 'normal'"  [scrollHide]="headerScrollConfig" [scrollContent]="pageContent">
+  <div class="headnonsearch"> 
+    <ion-row >
+      <ion-col >
+          <button ion-button clear class="text1" (click)="back()"  icon-start>
+              <ion-icon style="font-size: 20px;" name="arrow-back"></ion-icon>
+          </button>
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+        <h3 class="text">Pricelist</h3>  
+        <div class="line"></div>
+        <h4 class="text2">{{taglist}}</h4>     
+      </ion-col>
+    </ion-row>
+    <ion-row >
+        <ion-col>
+          <ion-segment class="segment" [(ngModel)]="segment">
+            <ion-segment-button value="graph1" (click)="graph1()">
+                <ion-icon class="segmenticon" name="md-trending-up"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="graph2" (click)="graph2()">
+                <ion-icon class="segmenticon" name="md-trending-down"></ion-icon>
+            </ion-segment-button>
+          </ion-segment>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="searchbar" *ngIf="dataisnull == false"  [scrollHide]="headerScrollConfig2" [scrollContent]="pageContent">
+      <ion-row>
+          <ion-col>
+              <ion-searchbar debounce="500" [(ngModel)]="terms" animated showCancelButton cancelButtonText="Custom Cancel"></ion-searchbar>
+          </ion-col>
+      </ion-row>
+  </div>
+
+</div>
+
+
+
+<ion-content class="conten" #pageContent fullscreen>
+
+  <!-- // ===================================== Fab Mode Normal ============================================= -->
+      <ion-fab right bottom *ngIf="divstatus == 'normal'" >
+        <button class="fabfilter" ion-fab (click)="filterlist()" ><ion-icon name="options"></ion-icon></button>
+      </ion-fab>
+  <!-- // ======================================== LIST DATA ============================================== -->
+      <div class="cont" *ngIf="divstatus == 'normal'">
+
+          <div *ngIf="dataisnull == true" class="dataisnull"  >
+              <img class="dataisnullimage" src="../assets/imgs/mining.png"/>
+              <h3 class="dataisnulltext">Sorry, we were unable to find any price list of the {{taglist}}</h3> 
+          </div>
+
+          <div *ngIf="dataisnull == false"> 
+          <ion-list class="divnormal">
+          <ion-item-sliding *ngFor="let x of datakonsumen | search : terms">
+              <ion-item (click)='detaildata(x)'>
+                  <ion-grid class="list_box">               
+                      <ion-row>
+
+                      <ion-col col-4 class="colxx" *ngIf="taglist != 'Battery'">
+                          <ion-row>
+                              <p style="color:#e91e63" class="nokonsumen">Rp. {{x.pricelist}}</p>
+                          </ion-row>
+                      </ion-col>
+
+                      <ion-col col-4 class="colxx" *ngIf="taglist == 'Battery'" >
+                        <ion-row>
+                          <p style="color:#e91e63" class="nokonsumen">Rp. {{x.battery_original_price}}</p>
+                        </ion-row>
+                        <ion-row>
+                          <p style="color:#e91e63" class="nokonsumen">Rp. {{x.battery_oem_price}}</p>
+                        </ion-row>
+                      </ion-col>
+
+
+              <!-- ------------------------------------------------------------------------------------------------------ -->
+                      <ion-col col-6 >
+                        <ion-row>
+          <!-- normal -->  <p class="nokonsumen" ><ion-icon name="ios-pricetag"></ion-icon>&ensp;&ensp;{{x.brand}}</p>
+                        </ion-row>
+                        <ion-row>
+          <!-- Hardisk --> <p *ngIf="taglist == 'Hardisk'" class="nokonsumen"><ion-icon name="ios-disc"></ion-icon>&ensp;&ensp;{{x.hd_capacity}}</p>
+          <!-- Adaptor --> <p *ngIf="taglist == 'Adaptor'" class="nokonsumen"><ion-icon name="pulse"></ion-icon>&ensp;&ensp;{{x.type}}</p>
+          <!-- Keyboard --><p *ngIf="taglist == 'Keyboard'" class="nokonsumen"><ion-icon name="brush"></ion-icon>&ensp;&ensp;{{x.keyboard_color }}</p>
+          <!-- LED -->     <p *ngIf="taglist == 'LED'" class="nokonsumen"><ion-icon name="resize"></ion-icon>&ensp;&ensp;{{x.led_size }}</p> 
+          <!-- Battery --> <p *ngIf="taglist == 'Battery'" class="nokonsumen"><ion-icon name="barcode"></ion-icon>&ensp;&ensp;{{x.type}}</p> 
+          
+                      
+            <!-- RAM -->     <p *ngIf="taglist == 'RAM'" class="nokonsumen"><ion-icon name="speedometer"></ion-icon>&ensp;&ensp;{{x.type}}</p>
+            <!-- Fan     --> <p *ngIf="taglist == 'Fan'" class="nokonsumen"><ion-icon name="snow"></ion-icon>&ensp;&ensp;{{x.type}}</p>
+            <!-- CDRoom  --> <p *ngIf="taglist == 'CDRoom'" class="nokonsumen"><ion-icon name="disc"></ion-icon>&ensp;&ensp;{{x.type}}</p>
+            <!-- Flexible --><p *ngIf="taglist == 'Flexible'" class="nokonsumen"><ion-icon name="flash"></ion-icon>&ensp;&ensp;{{x.type}}</p>
+            <!-- CMOS    --> <p *ngIf="taglist == 'CMOSBattery'" class="nokonsumen"><ion-icon name="battery-charging"></ion-icon>&ensp;&ensp;{{x.type}}</p>
+                        </ion-row>
+                      </ion-col>
+
+                      </ion-row>
+                  </ion-grid>
+              </ion-item>
+              <ion-item-options side="right">
+                  <button ion-button (click)="detaildata(x)" style="background-color:#00c581; color:#403f4c;">
+                      <ion-icon style="font-size: 30px;" name="alert"></ion-icon>
+                  </button>
+              </ion-item-options>
+          </ion-item-sliding>  
+          </ion-list>
+          </div>
+
+          <div class="bottomspace" ></div>
+
+
+      </div>
+  <!-- // ======================================== DETAIL DATA ============================================== -->
+
+    <div *ngIf="divstatus == 'modedetaildata'" class="modedetaildata">
+
+        <button class="closeicon" clear (click)="closedetaildata()">
+            <ion-icon class="ciicon" name="close"></ion-icon>
+        </button>
+
+            <ion-list class="listdetail">
+                <ion-item *ngIf="taglist == 'LED'">
+                  <ion-label stacked><ion-icon name="resize"></ion-icon>&ensp;&ensp;Size</ion-label>
+                  <ion-textarea class="inputdisable" rows="2" placeholder="{{datadetail.led_size}}"></ion-textarea>
+                </ion-item>
+                <ion-item *ngIf="taglist != 'Keyboard' && taglist != 'Battery'">
+                    <ion-label stacked><ion-icon name="ios-pricetag"></ion-icon>&ensp;&ensp;Brand</ion-label>
+                    <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;{{datadetail.brand}}"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="taglist == 'Keyboard' || taglist == 'Battery'">
+                  <ion-label stacked><ion-icon name="laptop"></ion-icon>&ensp;&ensp;Brand / Type</ion-label>
+                  <ion-textarea class="inputdisable" rows="7" placeholder="{{datadetail.brand}}"></ion-textarea>
+                </ion-item>
+                <ion-item *ngIf="taglist == 'Keyboard'" >
+                  <ion-label stacked><ion-icon name="brush"></ion-icon>&ensp;&ensp;Color</ion-label>
+                  <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;{{datadetail.keyboard_color}}"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="taglist == 'LED' || taglist == 'Battery' || taglist == 'RAM' || taglist == 'Fan' || taglist == 'CDRoom' || taglist == 'Flexible' || taglist == 'CMOSBattery' " >
+                    <ion-label *ngIf="taglist == 'LED' || taglist == 'Battery'"  stacked><ion-icon name="sunny"></ion-icon>&ensp;&ensp;Type</ion-label>
+                    <ion-label *ngIf="taglist == 'RAM'"  stacked><ion-icon name="speedometer"></ion-icon>&ensp;&ensp;Type</ion-label>
+                    <ion-label *ngIf="taglist == 'Fan'"  stacked><ion-icon name="snow"></ion-icon>&ensp;&ensp;Type</ion-label>
+                    <ion-label *ngIf="taglist == 'CDRoom'"  stacked><ion-icon name="disc"></ion-icon>&ensp;&ensp;Type</ion-label>
+                    <ion-label *ngIf="taglist == 'Flexible'"  stacked><ion-icon name="flash"></ion-icon>&ensp;&ensp;Type</ion-label>
+                    <ion-label *ngIf="taglist == 'CMOSBattery'"  stacked><ion-icon name="battery-charging"></ion-icon>&ensp;&ensp;Type</ion-label>
+                  <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;{{datadetail.type}}"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="taglist == 'Hardisk'" >
+                    <ion-label stacked><ion-icon name="ios-disc"></ion-icon>&ensp;&ensp;Capacity</ion-label>
+                    <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;{{datadetail.hd_capacity}}"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="taglist == 'Adaptor'" >
+                    <ion-label stacked><ion-icon name="pulse"></ion-icon>&ensp;&ensp;Voltage</ion-label>
+                    <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;{{datadetail.type}}"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="taglist != 'Battery'" >
+                    <ion-label stacked><ion-icon name="logo-usd"></ion-icon>&ensp;&ensp;Price</ion-label>
+                    <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;{{datadetail.pricelist}}"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="taglist == 'Battery'" >
+                    <ion-label stacked><ion-icon name="star-half"></ion-icon>&ensp;&ensp;OEM Price</ion-label>
+                    <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;{{datadetail.battery_oem_price}}"></ion-input>
+                </ion-item>  
+                <ion-item *ngIf="taglist == 'Battery'" >
+                    <ion-label stacked><ion-icon name="star"></ion-icon>&ensp;&ensp;Original Price</ion-label>
+                    <ion-input class="inputdisable" placeholder="&ensp;&ensp;&ensp;{{datadetail.battery_original_price}}"></ion-input>
+                </ion-item>     
+            </ion-list>
+      </div>
+
+</ion-content>
