@@ -50,7 +50,7 @@
     "firebase": "^6.0.2",
     "ionic-angular": "3.9.3",
     "ionicons": "3.0.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "pdfmake": "^0.1.56",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.5.2",
